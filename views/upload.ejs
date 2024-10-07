@@ -4,6 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>File Upload</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-top: 20px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      justify-items: center;
+    }
+    .gallery-item {
+      position: relative;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      transition: opacity 0.3s ease-in-out;
+      opacity: 0;
+    }
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+    .gallery-item:hover img {
+      filter: brightness(0.7);
+    }
+  </style>
 </head>
 <body>
   <h1>Upload Files</h1>
@@ -12,5 +66,19 @@
     <input type="file" name="files" id="files" multiple required>
     <button type="submit">Upload</button>
   </form>
+
+  <h1>Image Gallery</h1>
+
+  <div class="gallery">
+    <% files.forEach(function(image) { %>
+      <div class="gallery-item">
+        <img src="./uploads/<%= image %>" alt="Image">
+      </div>
+    <% }); %>
+  </div>
+  
 </body>
 </html>
+
+
+

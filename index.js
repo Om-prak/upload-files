@@ -36,35 +36,23 @@ const upload = multer({
 app.use('/uploads', express.static('uploads'));
 
 
-//====================================================================================
-//======================================================================================
-
-// // Path to the folder you want to read files from
-// const targetFolder = path.join(__dirname, 'your-folder-name');
-
-// Function to read files using async/await
-async function readFilesInDirectory(directoryPath) {
-  try {
+//============================================================================================
+// Render the upload form (GET request)
+app.get('/', async(req, res) => {
+try {
     // Read the contents of the directory
-    const files = await fs.readdir(directoryPath);
-
-    // Log all the files in the directory
-    console.log('Files in the directory:');
-    files.forEach(file => {
-      console.log(file);
-    });
+    const files = await fs.readdir('./uploads');
+    if (Array.isArray(files)) {
+        res.render('upload', { files: files , });
+      } else {
+        res.render('upload', { files: [] });  // Pass an empty array if files is not an array
+      }
   } catch (err) {
     console.error('Error reading the directory:', err);
   }
-}
-
-//============================================================================================
-//==========================================================================================
-
-
-// Render the upload form (GET request)
-app.get('/', (req, res) => {
-  res.render('upload');  // Renders views/index.ejs
+  
+  
+  // res.render('upload',{files:});  // Renders views/index.ejs
 });
 
 // Endpoint for file upload (POST request)
@@ -93,5 +81,4 @@ app.listen(port, () => {
   // Call the function to read files in the target folder
 
     console.log(path.join(__dirname, 'uploads'))
-    readFilesInDirectory(path.join(__dirname, 'uploads'));
 });
