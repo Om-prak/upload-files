@@ -34,6 +34,8 @@ const upload = multer({
 // Serve static files (e.g., for accessing uploaded images, etc.)
 app.use('/uploads', express.static('uploads'));
 
+
+
 // Render the upload form (GET request)
 app.get('/', (req, res) => {
   res.render('upload');  // Renders views/index.ejs
@@ -62,4 +64,5 @@ app.post('/upload', (req, res) => {
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
+  console.log(__dirname)
 });
