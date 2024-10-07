@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Success</title>
+</head>
+<body>
+  <h1><%= message %></h1>
+
+  <% if (files.length > 0) { %>
+    <h2>Uploaded Files:</h2>
+    <ul>
+      <% files.forEach(file => { %>
+        <li><a href="/uploads/<%= file.filename %>"><%= file.originalname %></a> - <%= file.size %> bytes</li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>No files were uploaded.</p>
+  <% } %>
+
+  <br>
+  <a href="/">Go back to upload more files</a>
+</body>
+</html>
