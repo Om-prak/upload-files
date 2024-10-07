@@ -64,5 +64,5 @@ app.post('/upload', (req, res) => {
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
-  console.log(__dirname)
+  console.log(path.join(__dirname, 'uploads'))
 });
