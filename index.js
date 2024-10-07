@@ -55,6 +55,25 @@ try {
   // res.render('upload',{files:});  // Renders views/index.ejs
 });
 
+// Render the upload form (GET request)
+app.get('/admin', async(req, res) => {
+try {
+    // Read the contents of the directory
+    const files = await fs.readdir('./uploads');
+    if (Array.isArray(files)) {
+        res.render('admin', { files: files , });
+      } else {
+        res.render('admin', { files: [] });  // Pass an empty array if files is not an array
+      }
+  } catch (err) {
+    console.error('Error reading the directory:', err);
+  }
+  
+  
+  // res.render('upload',{files:});  // Renders views/index.ejs
+});
+
+
 // Endpoint for file upload (POST request)
 app.post('/upload', (req, res) => {
   upload(req, res, (err) => {
@@ -74,6 +93,59 @@ app.post('/upload', (req, res) => {
     });
   });
 });
+
+
+app.get('/admin/delone/:name' , async(req,res)=>{
+
+  const name = req.params.name
+
+
+try {
+    // Read the contents of the directory
+    const files = await fs.readdir('./uploads');
+
+    await fs.unlink(`./uploads/${name}`, (err) => {
+            if (err) {
+              console.error('Error deleting file:', err);
+            } else {
+              console.log(`Deleted file: ${name}`);
+              
+            }
+
+  });
+  } catch (err) {
+    console.error('Error reading the directory:', err);
+  }
+  res.redirect('/admin')
+
+  })
+
+
+
+app.get('/delAll',async(req,res)=>{
+
+
+try {
+    // Read the contents of the directory
+    const files = await fs.readdir('./uploads');
+
+    files.forEach(async function(name) {
+      await fs.unlink(`./uploads/${name}`, (err) => {
+            if (err) {
+              console.error('Error deleting file:', err);
+            } else {
+              console.log(`Deleted file: ${file}`);
+              
+            }
+    })})
+    
+  } catch (err) {
+    console.error('Error reading the directory:', err);
+  }
+  res.redirect('/admin')
+
+  });
+
 
 // Start server
 app.listen(port, () => {

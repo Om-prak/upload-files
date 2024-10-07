@@ -65,19 +65,23 @@
     <label for="files">Select files:</label>
     <input type="file" name="files" id="files" multiple required>
     <button type="submit">Upload</button>
-  </form>
+    <a href="/delall" ><button type="button">delete All</button></a>
 
   <h1>Image Gallery</h1>
 
   <div class="gallery">
     <% files.forEach(function(image) { %>
+    <a href="/admin/delone/<%= image %>" >
       <div class="gallery-item">
         <img src="./uploads/<%= image %>" alt="Image">
-        <!-- <p><%= image %></p> -->
+        <p><%= image %></p>
+        
       </div>
+      </a>
     <% }); %>
   </div>
   
+  </form>
 </body>
 </html>
 
