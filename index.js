@@ -8,7 +8,10 @@ const port = 3000;
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));  // Views directory
+app.set('views', path.join(__dirname, 'views'));
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+  // Views directory
 
 // Set up file storage options using multer
 const storage = multer.diskStorage({
