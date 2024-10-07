@@ -41,4 +41,6 @@ app.post('/upload',upload.single('fileToUpload'), function (req, res) {
     res.redirect('/')
 })
 
-app.listen(port)
+app.listen(port,(req,res)=>{
+  console.log('server is started to runing......')
+})
