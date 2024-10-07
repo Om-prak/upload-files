@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs').promises;
 
 // Initialize Express app
 const app = express();
@@ -35,6 +36,31 @@ const upload = multer({
 app.use('/uploads', express.static('uploads'));
 
 
+//====================================================================================
+//======================================================================================
+
+// // Path to the folder you want to read files from
+// const targetFolder = path.join(__dirname, 'your-folder-name');
+
+// Function to read files using async/await
+async function readFilesInDirectory(directoryPath) {
+  try {
+    // Read the contents of the directory
+    const files = await fs.readdir(directoryPath);
+
+    // Log all the files in the directory
+    console.log('Files in the directory:');
+    files.forEach(file => {
+      console.log(file);
+    });
+  } catch (err) {
+    console.error('Error reading the directory:', err);
+  }
+}
+
+//============================================================================================
+//==========================================================================================
+
 
 // Render the upload form (GET request)
 app.get('/', (req, res) => {
@@ -64,5 +90,8 @@ app.post('/upload', (req, res) => {
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
-  console.log(path.join(__dirname, 'uploads'))
+  // Call the function to read files in the target folder
+
+    console.log(path.join(__dirname, 'uploads'))
+    readFilesInDirectory(path.join(__dirname, 'uploads'));
 });
