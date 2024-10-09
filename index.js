@@ -12,6 +12,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/sitemap', express.static(path.join(__dirname, 'sitemap')));
   // Views directory
 
 // Set up file storage options using multer
